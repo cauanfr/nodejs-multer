@@ -9,13 +9,12 @@ const create = async (file: Express.Multer.File): Promise<string> => {
   const photoName: string = `${Date.now()}-${uuid}.${extension}`;
 
   const queryFormat: string = format(
-    `INSERT INTO "photos_bytea" (name, buffer) VALUES (%L);`,
+    'INSERT INTO "photos_bytea" (name, buffer) VALUES (%L)',
     [photoName, file.buffer]
   );
 
   await database.client.query(queryFormat);
-
-  return "photobytea uploaded";
+  return "photo bytea - uploaded";
 };
 
 const read = async (): Promise<any[]> => {
@@ -26,7 +25,7 @@ const read = async (): Promise<any[]> => {
   return query.rows;
 };
 
-const retrieve = async (photoByteaId: string): Promise<any> => {
+const retrive = async (photoByteaId: string): Promise<any> => {
   const query: QueryResult = await database.client.query(
     'SELECT * FROM "photos_bytea" WHERE "id" = $1;',
     [photoByteaId]
@@ -35,4 +34,4 @@ const retrieve = async (photoByteaId: string): Promise<any> => {
   return query.rows[0];
 };
 
-export default { create, read, retrieve };
+export default { create, read, retrive };

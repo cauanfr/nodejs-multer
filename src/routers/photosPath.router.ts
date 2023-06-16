@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { photosPathControllers } from "../controllers";
 import { multerPhotosPathConfig } from "../configs";
+import { photosPathControllers } from "../controllers";
 
 const photosPathRouter: Router = Router();
 

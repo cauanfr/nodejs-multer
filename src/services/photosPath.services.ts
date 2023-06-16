@@ -1,21 +1,15 @@
-import crypto from "crypto";
 import format from "pg-format";
 import database from "../database";
 import { QueryResult } from "pg";
 
 const create = async (file: Express.Multer.File): Promise<string> => {
-  const uuid: string = crypto.randomUUID();
-  const extension: string = file.mimetype.split("/").at(-1)!;
-  const photoName: string = `${Date.now()}-${uuid}.${extension}`;
-
   const queryFormat: string = format(
-    `INSERT INTO "photos_path" (name, path) VALUES (%L);`,
-    [photoName, "../../upload/" + file.filename]
+    'INSERT INTO "photos_path" (name, path) VALUES (%L)',
+    [file.filename, "../../upload/" + file.filename]
   );
 
   await database.client.query(queryFormat);
-
-  return "photopath uploaded";
+  return "photo path - uploaded";
 };
 
 const read = async (): Promise<any[]> => {
@@ -28,7 +22,7 @@ const read = async (): Promise<any[]> => {
 
 const retrieve = async (photoPathId: string): Promise<any> => {
   const query: QueryResult = await database.client.query(
-    'SELECT * FROM "photos_path" WHERE "id" = $1;',
+    'SELECT * FROM "photos_path" WHERE  "id" = $1;',
     [photoPathId]
   );
 

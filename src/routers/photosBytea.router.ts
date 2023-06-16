@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { photosByteaControllers } from "../controllers";
 import { multerPhotosByteaConfig } from "../configs";
+import { photosByteaControllers } from "../controllers";
 
 const photosByteaRouter: Router = Router();
 
